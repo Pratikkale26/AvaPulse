@@ -44,7 +44,7 @@ One `docker-compose up` gives you:
 
 AvaPulse is in active development, building in public. It builds on the message-correlation engine validated in [ICM Trace](https://icm-trace.vercel.app/), a cross-chain execution debugger by the same builder — post-mortem debugging and live alerting are two halves of the same observability story.
 
-See [docs/ROADMAP.md](docs/ROADMAP.md) for milestones and [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the technical design.
+See the [litepaper](docs/LITEPAPER.md) for the full picture, [docs/ROADMAP.md](docs/ROADMAP.md) for milestones, and [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the technical design.
 
 ## Landing page
 
