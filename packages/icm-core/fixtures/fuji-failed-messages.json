@@ -1,0 +1,23 @@
+{
+  "description": "Real MessageExecutionFailed cases observed on Fuji Echo L1 — demo inputs for ICM Trace call-tree analysis. Found 2026-08-06 via scripts/fuji-smoke.mjs scan.",
+  "chain": "echo",
+  "rpc": "https://subnets.avax.network/echo/testnet/rpc",
+  "cases": [
+    {
+      "messageID": "0x00a66ed689607129b42640e5e1b71bda4d989d087e37ce98e048b2075a2f7e6d",
+      "failedTx": "0xf91c37cb2179701e7c5724b702430b292d6eae42071442cb1b9f4e56c1e70a95"
+    },
+    {
+      "messageID": "0xece780f55cedebf445eccac5111b1c21f8957856368bd732cc05d6d2c2e70066",
+      "failedTx": "0x04281eb772e39f157df874b57e2e72fafd7f6dc5e92fe5f97d23c0b71f70aafb"
+    },
+    {
+      "messageID": "0x34f8ee4b21ad03f22393083fde03a411b50b4b073280158559a9747ea2d0d279",
+      "failedTx": "0x8a12e76a568aa077a98a4ff1cc01166396780daf31a2a9c9c5880b985a46cf4b"
+    },
+    {
+      "messageID": "0xe96ceeac513e2de926aa377a9a4c904974337b442128d3d25abdc15567fe43c8",
+      "failedTx": "0x7737a90bd4eb52d7c82142a2d9ca0a4cd870f53f9b6264643d1011f561b5b1ec"
+    }
+  ]
+}
