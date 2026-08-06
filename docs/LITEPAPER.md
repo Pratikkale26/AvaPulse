@@ -64,13 +64,13 @@ AvaPulse's lifecycle tracker derives from [ICM Trace](https://icm-trace.vercel.a
 
 ## Milestones & funding
 
-Requested grant: **$9,000**, milestone-gated, ~12 weeks to MVP.
+Requested grant: **$8,000**, milestone-gated, ~12 weeks to MVP.
 
 | Milestone | Deliverables | Exit criteria | Amount |
 |---|---|---|---|
 | **M1** (wk 1–4) | Collector, storage, prebuilt dashboards, live Fuji demo | A stranger points AvaPulse at a Fuji L1 + relayer and sees live dashboards within 10 minutes | $3,000 |
-| **M2** (wk 5–8) | Lifecycle tracker, five default rules, notifier, one-command self-host, docs | A deliberately stalled relayer and a drained gas wallet on Fuji both alert correctly (and recover) in under 60 seconds | $3,500 |
-| **M3** (wk 9–12) | Hosted beta, 3–5 real L1 teams onboarded, public launch, usage dashboard | Verifiable third-party usage: chains monitored, alerts delivered | $2,500 |
+| **M2** (wk 5–8) | Lifecycle tracker, five default rules, notifier, one-command self-host, docs | A deliberately stalled relayer and a drained gas wallet on Fuji both alert correctly (and recover) in under 60 seconds | $3,000 |
+| **M3** (wk 9–12) | Hosted beta, 3–5 real L1 teams onboarded, public launch, usage dashboard | Verifiable third-party usage: chains monitored, alerts delivered | $2,000 |
 
 Budget covers development time, server and RPC-provider costs (including archival queries for lifecycle tracking), and testnet operations. Progress is tracked publicly via GitHub milestones: [ROADMAP.md](ROADMAP.md).
 
