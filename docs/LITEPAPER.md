@@ -43,7 +43,7 @@ Zeeve monitors nodes and chains well, at enterprise pricing, without ICM awarene
 One YAML config declaring chains, relayers, gas wallets, and ICM chain pairs; one `docker-compose up`. Then:
 
 - **Collector** — ingests AvalancheGo node metrics, relayer Prometheus metrics, and RPC health probes across any number of L1s.
-- **ICM lifecycle tracker** — subscribes to Teleporter event logs on source and destination chains and correlates them by `messageID` (send → receive → execute → receipt), so the system knows which messages are late *right now*.
+- **ICM lifecycle tracker** — subscribes to Teleporter event logs on source and destination chains and correlates them by `messageID` (send → receive → execute → receipt), so the system knows which messages are late *right now*. This engine is already built, tested against live Fuji traffic (1,897 real events → 982 lifecycles in a verification run), and published as a reusable ecosystem package: [`@avapulse/icm-core`](https://www.npmjs.com/package/@avapulse/icm-core).
 - **Alert engine** — five Avalanche-native rules shipped as defaults: `relayer_stalled_while_up`, `relayer_gas_wallet_low` (with projected time-to-empty), `icm_message_stuck` (with escalation), `validator_uptime_dipping` (fires *before* the threshold is breached), `chain_degraded`. Declarative YAML rules, deduplication, cooldowns, and a recovery notification for every firing alert — silence means healthy, not unknown.
 - **Notifier** — Telegram, Discord, Slack, email, generic webhooks, routed per severity.
 - **Dashboards** — node health, chain health, and a cross-chain message-flow board.
