@@ -14,6 +14,8 @@ export interface FetchEventsOptions {
   toBlock: bigint
   /** Resolve block timestamps via eth_getBlockByNumber (default true). */
   withTimestamps?: boolean
+  /** Initial getLogs chunk size in blocks (default 2000). */
+  maxRange?: bigint
 }
 
 /**
@@ -23,17 +25,13 @@ export interface FetchEventsOptions {
 export async function fetchTeleporterEvents(
   opts: FetchEventsOptions,
 ): Promise<TeleporterEventRecord[]> {
-  const { client, chain, fromBlock, toBlock, withTimestamps = true } = opts
+  const { client, chain, fromBlock, toBlock, withTimestamps = true, maxRange = MAX_RANGE } = opts
   const records: TeleporterEventRecord[] = []
   const tsCache = new Map<bigint, number>()
 
-  for (let start = fromBlock; start <= toBlock; start += MAX_RANGE) {
-    const end = start + MAX_RANGE - 1n > toBlock ? toBlock : start + MAX_RANGE - 1n
-    const logs = await client.getLogs({
-      address: TELEPORTER_MESSENGER_ADDRESS,
-      fromBlock: start,
-      toBlock: end,
-    })
+  for (let start = fromBlock; start <= toBlock; start += maxRange) {
+    const end = start + maxRange - 1n > toBlock ? toBlock : start + maxRange - 1n
+    const logs = await getLogsAdaptive(client, start, end)
     for (const log of logs) {
       let blockTimestamp: number | undefined
       if (withTimestamps && log.blockNumber != null) {
@@ -50,6 +48,35 @@ export async function fetchTeleporterEvents(
     }
   }
   return records
+}
+
+type LogsResult = Awaited<ReturnType<PublicClient["getLogs"]>>
+
+/**
+ * getLogs that recursively halves the range when the provider rejects it
+ * (oversized response, range cap, timeout) — dense chains like Echo can
+ * exceed response limits even on modest block ranges.
+ */
+async function getLogsAdaptive(
+  client: PublicClient,
+  fromBlock: bigint,
+  toBlock: bigint,
+): Promise<LogsResult> {
+  try {
+    return await client.getLogs({
+      address: TELEPORTER_MESSENGER_ADDRESS,
+      fromBlock,
+      toBlock,
+    })
+  } catch (error) {
+    if (fromBlock >= toBlock) throw error
+    const mid = fromBlock + (toBlock - fromBlock) / 2n
+    const [a, b] = await Promise.all([
+      getLogsAdaptive(client, fromBlock, mid),
+      getLogsAdaptive(client, mid + 1n, toBlock),
+    ])
+    return [...a, ...b]
+  }
 }
 
 export interface WatcherChain {
