@@ -4,6 +4,23 @@
   "description": "Teleporter/ICM message lifecycle engine: event decoding, messageID correlation, lifecycle state machine",
   "license": "MIT",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pratikkale26/AvaPulse.git",
+    "directory": "packages/icm-core"
+  },
+  "homepage": "https://ava-pulse.vercel.app",
+  "keywords": [
+    "avalanche",
+    "icm",
+    "teleporter",
+    "cross-chain",
+    "interchain-messaging",
+    "monitoring"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
@@ -21,6 +38,7 @@
     "viem": "^2.38.0"
   },
   "devDependencies": {
+    "@types/node": "^22",
     "typescript": "^5",
     "vitest": "^3"
   }
