@@ -42,6 +42,8 @@ One `docker-compose up` gives you:
 
 ## Status
 
+**Working today:** [`@avapulse/icm-core`](packages/icm-core) — the Teleporter lifecycle engine — decodes live Fuji traffic end to end: in a recent run, 1,897 real Teleporter events across C-Chain and Echo assembled into 982 message lifecycles, including real-world `execution_failed` cases. Reproduce it: `npm run build && node packages/icm-core/scripts/fuji-smoke.mjs`.
+
 AvaPulse is in active development, building in public. It builds on the message-correlation engine validated in [ICM Trace](https://icm-trace.vercel.app/), a cross-chain execution debugger by the same builder — post-mortem debugging and live alerting are two halves of the same observability story.
 
 See the [litepaper](docs/LITEPAPER.md) for the full picture, [docs/ROADMAP.md](docs/ROADMAP.md) for milestones, and [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for the technical design.
