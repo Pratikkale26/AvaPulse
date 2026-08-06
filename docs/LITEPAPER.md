@@ -60,7 +60,7 @@ Full technical design: [ARCHITECTURE.md](ARCHITECTURE.md) · rule specifications
 
 ## Prior work
 
-AvaPulse's lifecycle tracker derives from [ICM Trace](https://icm-trace.vercel.app/), a cross-chain execution debugger by the same builder that reconstructs Teleporter message lifecycles and decodes destination-chain failures. Post-mortem debugging (ICM Trace) and live alerting (AvaPulse) are two halves of one observability story; the message-correlation core is already validated.
+AvaPulse draws on two prior projects by the same builder. [DecentralWatch](https://github.com/Pratikkale26/DecentralWatch) is a decentralized uptime-monitoring platform with validator incentives on Solana — direct, shipped experience with probes, alert pipelines, and monitoring UX. [ICM Trace](https://icm-trace.vercel.app/) is a proof-of-concept cross-chain execution debugger that reconstructs Teleporter message lifecycles and decodes destination-chain failures; its message-correlation approach gives AvaPulse's lifecycle tracker a head start. Post-mortem debugging (ICM Trace) and live alerting (AvaPulse) are two halves of one observability story.
 
 ## Milestones & funding
 
@@ -80,7 +80,9 @@ The open-source core stays free and first-class — adoption is the goal. A low-
 
 ## Team
 
-**Pratik Kale** — builder of [ICM Trace](https://icm-trace.vercel.app/) · [GitHub](https://github.com/Pratikkale26)
+**Pratik Kale** — infrastructure and tooling builder; 100xdevs hackathon winner and 3x grant recipient. Previously built [DecentralWatch](https://github.com/Pratikkale26/DecentralWatch), a decentralized uptime-monitoring platform with validator incentives on Solana — AvaPulse applies that monitoring experience to Avalanche's cross-chain layer. Other work includes [Flowrge](https://github.com/Pratikkale26/Flowrge) (no-code Web2 ↔ on-chain automation), [Anvil](https://x.com/anvil_sol) (Solana compiler tooling), and [ICM Trace](https://icm-trace.vercel.app/) (proof-of-concept Teleporter message debugger). Turbin3 graduate; ex-CTO of an IIT Madras startup.
+
+[Portfolio](https://kalehub.com/) · [GitHub](https://github.com/Pratikkale26) · [X](https://x.com/PratikKale26)
 
 ---
 
