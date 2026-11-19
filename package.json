@@ -9,6 +9,7 @@
     "build": "npm run build --workspaces --if-present",
     "test": "npm run test --workspaces --if-present",
     "typecheck": "npm run typecheck --workspaces --if-present",
-    "demo:alerts": "node packages/alert-engine/scripts/demo-alerts.mjs"
+    "demo:alerts": "node packages/alert-engine/scripts/demo-alerts.mjs",
+    "probe:live": "node packages/collector/scripts/live-testnet.mjs"
   }
 }
