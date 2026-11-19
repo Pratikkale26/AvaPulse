@@ -1,0 +1,26 @@
+{
+  "name": "@avapulse/alert-engine",
+  "version": "0.1.0",
+  "description": "Semantic alert engine for Avalanche L1s and ICM relayers: rule evaluation, incident lifecycle, cooldowns, and recovery notifications",
+  "license": "MIT",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@avapulse/icm-core": "0.1.0",
+    "viem": "^2.38.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "typescript": "^5",
+    "vitest": "^3"
+  }
+}
