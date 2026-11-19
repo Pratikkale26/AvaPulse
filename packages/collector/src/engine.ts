@@ -6,6 +6,7 @@ import {
 import { GasWalletProber } from "./probers/gas.js"
 import { RpcProber } from "./probers/rpc.js"
 import { NodeMetricsScraper, RelayerMetricsScraper } from "./scrapers/prometheus.js"
+import type { CollectorStorage } from "./storage/sqlite.js"
 import type {
   CollectorConfig,
   GasBalanceResult,
@@ -25,6 +26,7 @@ export interface CollectorCycleReport {
 
 export class CollectorEngine {
   public readonly alertEngine: AlertEngine
+  public readonly storage?: CollectorStorage
   private rpcProbers: Map<string, RpcProber> = new Map()
   private gasProbers: GasWalletProber[] = []
   private nodeScrapers: NodeMetricsScraper[] = []
@@ -35,8 +37,20 @@ export class CollectorEngine {
   constructor(
     public readonly config: CollectorConfig,
     alertEngine?: AlertEngine,
+    storage?: CollectorStorage,
   ) {
     this.alertEngine = alertEngine ?? new AlertEngine()
+    this.storage = storage
+
+    // Sync alert incidents to storage when alert state changes
+    if (this.storage) {
+      this.alertEngine.subscribe((n) => {
+        const incident = this.alertEngine.getIncident(n.incidentId)
+        if (incident && this.storage) {
+          this.storage.recordIncident(incident)
+        }
+      })
+    }
 
     // 1. Initialize RPC Probers per chain
     for (const chain of config.chains) {
@@ -71,10 +85,16 @@ export class CollectorEngine {
     // 1. Run RPC Probes
     const rpcPromises = [...this.rpcProbers.values()].map((p) => p.probe(timestamp))
     const rpcResults = await Promise.all(rpcPromises)
+    if (this.storage) {
+      for (const r of rpcResults) this.storage.recordRpcProbe(r)
+    }
 
     // 2. Check Relayer Gas Balances
     const gasPromises = this.gasProbers.map((p) => p.checkBalance(timestamp))
     const gasResults = await Promise.all(gasPromises)
+    if (this.storage) {
+      for (const g of gasResults) this.storage.recordGasBalance(g)
+    }
 
     // Evaluate Gas Wallet Alerts
     for (const gas of gasResults) {
@@ -95,6 +115,9 @@ export class CollectorEngine {
     // 4. Scrape Relayer Metrics
     const relayerPromises = this.relayerScrapers.map((s) => s.scrape(timestamp))
     const relayerSnapshots = await Promise.all(relayerPromises)
+    if (this.storage) {
+      for (const s of relayerSnapshots) this.storage.recordRelayerSnapshot(s)
+    }
 
     // Evaluate Relayer Metrics
     for (const relayer of relayerSnapshots) {
